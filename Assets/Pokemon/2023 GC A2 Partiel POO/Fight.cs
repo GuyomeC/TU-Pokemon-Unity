@@ -66,8 +66,6 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
             {
                 if (Character1.IsAlive && Character2.IsAlive)
                 {
-                    skillFromCharacter1.Power = CheckResistance(skillFromCharacter1, skillFromCharacter2);
-                    skillFromCharacter2.Power = CheckResistance(skillFromCharacter2, skillFromCharacter1);
                     if (Character1.Speed > Character2.Speed)
                     {
                         Character2.ReceiveAttack(skillFromCharacter1);  
@@ -88,21 +86,7 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
             }
         }
 
-        public int CheckResistance(Skill attacker, Skill receiver)
-        {
-            if (TypeResolver.GetFactor(attacker.Type, receiver.Type) == 0.8f)
-            {
-                return attacker.Power = (int)(attacker.Power * 0.8f);
-            }
-            else if (TypeResolver.GetFactor(attacker.Type, receiver.Type) == 1.2f)
-            {
-                return attacker.Power = (int)(attacker.Power * 1.2f);
-            }
-            else
-            {
-                return attacker.Power;
-            }
-        }
+        
 
     }
 }
