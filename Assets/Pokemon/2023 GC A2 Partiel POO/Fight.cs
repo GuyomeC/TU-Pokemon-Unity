@@ -1,0 +1,108 @@
+﻿
+using System;
+
+namespace _2023_GC_A2_Partiel_POO.Level_2
+{
+    public class Fight
+    {
+        public Character _character1;
+        public Character _character2;
+
+        public Fight(Character character1, Character character2)
+        {
+            Character1 = character1;
+            Character2 = character2;
+        }
+
+        public Character Character1
+        {
+            get => _character1;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException();
+                }
+                else
+                {
+                    _character1 = value;
+                }
+
+            }
+        }
+        public Character Character2
+        {
+            get => _character2;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException();
+                }
+                else
+                {
+                    _character2 = value;
+                }
+            }
+        }
+        /// <summary>
+        /// Est-ce la condition de victoire/défaite a été rencontré ?
+        /// </summary>
+        public bool IsFightFinished => !Character1.IsAlive || !Character2.IsAlive;
+
+        /// <summary>
+        /// Jouer l'enchainement des attaques. Attention à bien gérer l'ordre des attaques par apport à la speed des personnages
+        /// </summary>
+        /// <param name="skillFromCharacter1">L'attaque selectionné par le joueur 1</param>
+        /// <param name="skillFromCharacter2">L'attaque selectionné par le joueur 2</param>
+        /// <exception cref="ArgumentNullException">si une des deux attaques est null</exception>
+        public void ExecuteTurn(Skill skillFromCharacter1, Skill skillFromCharacter2)
+        {
+            if (skillFromCharacter1 == null || skillFromCharacter2 == null)
+            {
+                throw new ArgumentNullException();
+            }
+            else
+            {
+                if (Character1.IsAlive && Character2.IsAlive)
+                {
+                    skillFromCharacter1.Power = CheckResistance(skillFromCharacter1, skillFromCharacter2);
+                    skillFromCharacter2.Power = CheckResistance(skillFromCharacter2, skillFromCharacter1);
+                    if (Character1.Speed > Character2.Speed)
+                    {
+                        Character2.ReceiveAttack(skillFromCharacter1);  
+                        if (Character2.IsAlive)
+                        {
+                            Character1.ReceiveAttack(skillFromCharacter2);
+                        }
+                    }
+                    else
+                    {
+                        Character1.ReceiveAttack(skillFromCharacter2);
+                        if (Character1.IsAlive)
+                        {
+                            Character2.ReceiveAttack(skillFromCharacter2);
+                        }
+                    }
+                }
+            }
+        }
+
+        public int CheckResistance(Skill attacker, Skill receiver)
+        {
+            if (TypeResolver.GetFactor(attacker.Type, receiver.Type) == 0.8f)
+            {
+                return attacker.Power = (int)(attacker.Power * 0.8f);
+            }
+            else if (TypeResolver.GetFactor(attacker.Type, receiver.Type) == 1.2f)
+            {
+                return attacker.Power = (int)(attacker.Power * 1.2f);
+            }
+            else
+            {
+                return attacker.Power;
+            }
+        }
+
+    }
+}
