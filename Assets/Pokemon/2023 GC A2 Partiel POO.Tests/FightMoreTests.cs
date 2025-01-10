@@ -16,21 +16,21 @@ namespace _2023_GC_A2_Partiel_POO.Tests.Level_2
 
 
         // - Le support des status (sleep et burn) qui font des effets à la fin du tour et/ou empeche le pkmn d'agir
-        //[Test]
-        //public void  VerifyStatus()
-        //{
-        //    Character salameche = new Character(100, 50, 30, 20, TYPE.FIRE);
-        //    Character bulbizarre = new Character(90, 60, 10, 200, TYPE.GRASS);
-        //    Fight f = new Fight(salameche, bulbizarre);
-        //    FireBall fb = new FireBall();
-        //    MagicalGrass mg = new MagicalGrass();
+        [Test]
+        public void VerifyStatus()
+        {
+            Character salameche = new Character(100, 50, 30, 20, TYPE.FIRE);
+            Character bulbizarre = new Character(90, 60, 10, 200, TYPE.GRASS);
+            Fight f = new Fight(salameche, bulbizarre);
+            FireBall fb = new FireBall();
+            MagicalGrass mg = new MagicalGrass();
 
-        //    f.ExecuteTurn(fb, mg);
+            f.ExecuteTurn(fb, mg);
 
-        //    Assert.That(bulbizarre.CurrentStatus, Is.EqualTo(StatusEffect.GetNewStatusEffect(StatusPotential.BURN)));
-        //    Assert.That(salameche.CurrentStatus, Is.EqualTo(StatusEffect.GetNewStatusEffect(StatusPotential.SLEEP)));
+            Assert.That(bulbizarre.CurrentStatus, Is.EqualTo(StatusEffect.GetNewStatusEffect(StatusPotential.BURN)));
+            Assert.That(salameche.CurrentStatus, Is.EqualTo(StatusEffect.GetNewStatusEffect(StatusPotential.SLEEP)));
 
-        //}
+        }
         // - Gérer la notion de force/faiblesse avec les différentes attaques à disposition (skills.cs)
         [Test]
         public void VerifyType()
